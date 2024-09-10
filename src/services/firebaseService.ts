@@ -1,6 +1,6 @@
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
-import { db, app } from '../lib/firebase';
+import { db, app, storage } from '../lib/firebase';
 
 export interface Ingredient {
   name: string;
@@ -39,7 +39,6 @@ export const addMenuItem = async (menuItem: NewMenuItem): Promise<void> => {
   await addDoc(menuItemsCol, { 
     ...menuItem, 
     image: imageUrl,
-    price: Number(menuItem.price) // Ensure price is stored as a number
   });
 };
 
