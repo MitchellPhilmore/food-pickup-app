@@ -13,7 +13,13 @@ interface RestaurantCardProps {
 const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg">
-      <img src={restaurant.image} alt={restaurant.name} width={300} height={200} />
+      <img 
+        src={restaurant.image} 
+        alt={restaurant.name} 
+        width={300} 
+        height={200} 
+        style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+      />
       <div className="p-4">
         <h2 className="text-lg font-semibold">{restaurant.name}</h2>
         <Link href={`/restaurant/${restaurant.id}`}>
