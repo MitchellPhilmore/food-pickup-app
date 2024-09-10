@@ -40,15 +40,15 @@ export function SoulFoodOrderModal({ isOpen, onClose }: SoulFoodOrderModalProps)
   const handleCheckout = async () => {
     try {
       const items = cartItems.map(item => ({
-        price: item.price * 100, // Convert to cents
+        price: item.price * 100, 
         quantity: item.quantity,
         name: item.name,
+        image: item.image, 
       }));
       console.log('Initiating checkout with items:', items);
       await processPayment(items);
     } catch (error) {
       console.error('Payment failed:', error);
-      // You might want to show an error message to the user here
     }
   };
 
