@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 import { useCart } from "../context/CartContext"
-import { MenuItem as FirebaseMenuItem } from "../services/firebaseService";
 
 interface Ingredient {
   name: string;

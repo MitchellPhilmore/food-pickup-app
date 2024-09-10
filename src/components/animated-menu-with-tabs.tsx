@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import { FoodCartModal } from "./food-cart-modal";
 import { SoulFoodOrderModal } from "./soul-food-order-modal";
 import { Button } from "@/components/ui/button";
