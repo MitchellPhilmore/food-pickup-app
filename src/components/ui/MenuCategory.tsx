@@ -1,4 +1,15 @@
-const MenuCategory = ({ category, onClick, isSelected }) => {
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface MenuCategoryProps {
+  category: Category;
+  onClick: () => void;
+  isSelected: boolean;
+}
+
+const MenuCategory = ({ category, onClick, isSelected }: MenuCategoryProps) => {
   return (
     <button
       onClick={onClick}
