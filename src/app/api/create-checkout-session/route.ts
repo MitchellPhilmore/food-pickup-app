@@ -11,19 +11,17 @@ export async function POST(request: Request) {
   try {
     const { items, success_url, cancel_url } = await request.json();
 
-    // Create line items for Stripe
     const lineItems = items.map((item: LineItem) => ({
       price_data: {
         currency: 'usd',
         product_data: {
           name: item.name,
         },
-        unit_amount: Math.round(item.price * 100), // Convert to cents and ensure it's an integer
+        unit_amount: Math.round(item.price),
       },
       quantity: item.quantity,
     }));
 
-    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
