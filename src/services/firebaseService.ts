@@ -1,6 +1,6 @@
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { db, app } from '../lib/firebase';
 
 export interface Ingredient {
   name: string;
@@ -52,3 +52,15 @@ export const deleteMenuItem = async (id: string): Promise<void> => {
   const menuItemRef = doc(db, 'menuItems', id);
   await deleteDoc(menuItemRef);
 };
+
+export async function getImageUrl(imagePath: string) {
+  const storage = getStorage(app);
+  const imageRef = ref(storage, imagePath);
+  try {
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (error) {
+    console.error("Error getting image URL:", error);
+    return null;
+  }
+}
