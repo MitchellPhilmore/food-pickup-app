@@ -1,19 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getImageUrl } from "../services/firebaseService";
+import { useEffect } from "react";
 
 export function HeroSectionDark() {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-
   useEffect(() => {
-    async function loadImage() {
-      const url = await getImageUrl("images/soulfood-banner-1.jpg");
-      setImageUrl(url);
-    }
-    loadImage();
-
     const smoothScroll = (e: Event) => {
       e.preventDefault();
       const targetId = (e.currentTarget as HTMLAnchorElement)
@@ -45,14 +36,12 @@ export function HeroSectionDark() {
   return (
     <section className="w-full relative">
       <div className="absolute inset-0 z-0">
-        {imageUrl && (
-          <Image
-            alt="Delicious soul food spread"
-            className="object-cover object-center"
-            fill
-            src={imageUrl}
-          />
-        )}
+        <Image
+          alt="Delicious soul food spread"
+          className="object-cover object-center"
+          fill
+          src="/images/soulfood-banner-1.jpg"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/60 to-zinc-900/10" />
       </div>
       <div className="relative z-10 container mx-auto px-4 py-24 md:py-32 lg:py-40 xl:py-48">
