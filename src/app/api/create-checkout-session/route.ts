@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server';
 import stripe from '../../../server/stripe';
 
+interface LineItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export async function POST(request: Request) {
   try {
     const { items, success_url, cancel_url } = await request.json();
 
     // Create line items for Stripe
-    const lineItems = items.map((item: any) => ({
+    const lineItems = items.map((item: LineItem) => ({
       price_data: {
         currency: 'usd',
         product_data: {

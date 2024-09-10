@@ -8,7 +8,7 @@ import { Footer } from "../components/footer";
 import { RestaurantLocation } from "../components/restaurant-location";
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory] = useState(null);
 
   const business = {
     name: "Delicious Eats",

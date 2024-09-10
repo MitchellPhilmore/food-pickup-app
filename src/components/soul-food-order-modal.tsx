@@ -21,7 +21,7 @@ interface SoulFoodOrderModalProps {
 }
 
 export function SoulFoodOrderModal({ isOpen, onClose }: SoulFoodOrderModalProps) {
-  const { cartItems, addToCart, removeFromCart, clearCart } = useCart()
+  const { cartItems, addToCart, removeFromCart } = useCart()
 
   const updateQuantity = (id: number, increment: number) => {
     console.log('Updating quantity:', id, increment);

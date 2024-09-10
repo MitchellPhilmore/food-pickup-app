@@ -16,15 +16,23 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 import { useCart } from "../context/CartContext"
-import { MenuItem } from "../services/firebaseService";
+import { MenuItem as FirebaseMenuItem } from "../services/firebaseService";
 
 interface Ingredient {
   name: string;
   default: boolean;
 }
 
+interface MenuItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  ingredients: Ingredient[];
+}
+
 interface FoodCartModalProps {
-  item: MenuItem & { id: number };
+  item: MenuItem;
   isOpen: boolean;
   onClose: () => void;
   onCheckout: () => void;

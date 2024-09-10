@@ -11,6 +11,7 @@ import { getMenuItems, MenuItem as FirebaseMenuItem } from "../services/firebase
 
 interface MenuItem extends Omit<FirebaseMenuItem, 'id'> {
   id: number;
+  category: string;
 }
 
 interface AnimatedMenuWithTabsProps {
