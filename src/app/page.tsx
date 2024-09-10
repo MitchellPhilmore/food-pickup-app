@@ -1,101 +1,178 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { AnimatedMenuWithTabs } from "../components/animated-menu-with-tabs";
+import { HeroSectionDark } from "../components/hero-section-dark";
+import { Header } from "../components/header";
+import { CustomerReviews } from "../components/customer-reviews";
+import { Footer } from "../components/footer";
+import { RestaurantLocation } from "../components/restaurant-location";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const business = {
+    name: "Delicious Eats",
+    description: "Your go-to place for delicious food",
+    image: "/images/restaurant-front.webp",
+    categories: [
+      { id: 1, name: "Appetizers" },
+      { id: 2, name: "Main Courses" },
+      { id: 3, name: "Desserts" },
+      { id: 4, name: "Drinks" },
+    ],
+  };
+
+  const menuItems = {
+    1: [
+      {
+        id: 1,
+        name: "Mozzarella Sticks",
+        description: "Crispy outside, gooey inside",
+        price: 7.99,
+        image: "/images/mozzarella-sticks.jpg",
+        ingredients: [
+          { name: "Mozzarella Cheese", default: true },
+          { name: "Breadcrumbs", default: true },
+          { name: "Marinara Sauce", default: true },
+          { name: "Herbs", default: false },
+          { name: "Garlic Powder", default: false },
+        ],
+      },
+      {
+        id: 2,
+        name: "Chicken Wings",
+        description: "Spicy buffalo sauce",
+        price: 9.99,
+        image: "/images/chicken-wings.webp",
+        ingredients: [
+          { name: "Chicken Wings", default: true },
+          { name: "Buffalo Sauce", default: true },
+          { name: "Blue Cheese Dip", default: true },
+          { name: "Celery Sticks", default: true },
+          { name: "Extra Hot Sauce", default: false },
+        ],
+      },
+    ],
+    2: [
+      {
+        id: 3,
+        name: "Cheeseburger",
+        description: "Classic beef patty with cheese",
+        price: 12.99,
+        image: "/images/cheeseburger.jpg",
+        ingredients: [
+          { name: "Beef Patty", default: true },
+          { name: "Cheese", default: true },
+          { name: "Lettuce", default: true },
+          { name: "Tomato", default: true },
+          { name: "Onion", default: true },
+          { name: "Pickles", default: true },
+          { name: "Ketchup", default: false },
+          { name: "Mustard", default: false },
+          { name: "Mayo", default: false },
+          { name: "Bacon", default: false },
+        ],
+      },
+      {
+        id: 4,
+        name: "Grilled Salmon",
+        description: "Served with roasted vegetables",
+        price: 16.99,
+        image: "/images/grilled-salmon.jpg",
+        ingredients: [
+          { name: "Salmon Fillet", default: true },
+          { name: "Lemon", default: true },
+          { name: "Roasted Vegetables", default: true },
+          { name: "Dill", default: true },
+          { name: "Garlic Butter", default: false },
+          { name: "Capers", default: false },
+        ],
+      },
+    ],
+    3: [
+      {
+        id: 5,
+        name: "Chocolate Cake",
+        description: "Rich and decadent",
+        price: 6.99,
+        image: "/images/chocolate-cake.webp",
+        ingredients: [
+          { name: "Chocolate Sponge", default: true },
+          { name: "Chocolate Frosting", default: true },
+          { name: "Chocolate Chips", default: true },
+          { name: "Whipped Cream", default: false },
+          { name: "Cherry", default: false },
+        ],
+      },
+      {
+        id: 6,
+        name: "Ice Cream Sundae",
+        description: "Your choice of 3 scoops",
+        price: 5.99,
+        image: "/images/ice-cream-sundae.jpg",
+        ingredients: [
+          { name: "Vanilla Ice Cream", default: true },
+          { name: "Chocolate Sauce", default: true },
+          { name: "Whipped Cream", default: true },
+          { name: "Cherry", default: true },
+          { name: "Nuts", default: false },
+          { name: "Sprinkles", default: false },
+        ],
+      },
+    ],
+    4: [
+      {
+        id: 7,
+        name: "Soda",
+        description: "Various flavors available",
+        price: 2.49,
+        image: "/images/soda.jpg",
+        ingredients: [
+          { name: "Cola", default: true },
+          { name: "Ice", default: true },
+          { name: "Lemon Slice", default: false },
+        ],
+      },
+      {
+        id: 8,
+        name: "Iced Tea",
+        description: "Freshly brewed",
+        price: 2.99,
+        image: "/images/ice-tea.webp",
+        ingredients: [
+          { name: "Black Tea", default: true },
+          { name: "Ice", default: true },
+          { name: "Lemon Slice", default: true },
+          { name: "Sugar Syrup", default: false },
+        ],
+      },
+    ],
+  };
+
+  // Modify menuItems to include the category
+  const menuItemsWithCategory = {
+    1: menuItems[1].map(item => ({ ...item, category: "Appetizers" })),
+    2: menuItems[2].map(item => ({ ...item, category: "Main Courses" })),
+    3: menuItems[3].map(item => ({ ...item, category: "Desserts" })),
+    4: menuItems[4].map(item => ({ ...item, category: "Drinks" })),
+  };
+
+  return (
+    <div className="min-h-screen bg-zinc-900 text-zinc-300 font-[family-name:var(--font-geist-sans)]">
+      <Header />
+      <HeroSectionDark />
+      <main className="flex flex-col gap-8 items-center sm:items-start p-8 pb-20 sm:p-20">
+        <h2 className="text-2xl font-semibold mt-8 text-amber-400" id="menu">Our Menu</h2>
+        
+        <AnimatedMenuWithTabs 
+          categories={[{ id: 0, name: "All" }, ...business.categories]}
+          initialMenuItems={menuItemsWithCategory}
+        />
+        
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <CustomerReviews />
+      <RestaurantLocation />
+      <Footer />
     </div>
   );
 }
