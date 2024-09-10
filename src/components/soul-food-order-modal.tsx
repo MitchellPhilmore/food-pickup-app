@@ -43,7 +43,6 @@ export function SoulFoodOrderModal({ isOpen, onClose }: SoulFoodOrderModalProps)
         price: item.price * 100, 
         quantity: item.quantity,
         name: item.name,
-        image: item.image, 
       }));
       console.log('Initiating checkout with items:', items);
       await processPayment(items);

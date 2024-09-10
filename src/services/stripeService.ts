@@ -1,7 +1,7 @@
 import { stripePromise } from '../lib/stripe';
 import axios from 'axios';
 
-export const processPayment = async (items: Array<{ price: number; quantity: number; name: string; image: string }>) => {
+export const processPayment = async (items: Array<{ price: number; quantity: number; name: string }>) => {
   const stripe = await stripePromise;
   if (!stripe) throw new Error('Stripe failed to initialize');
 
@@ -11,7 +11,7 @@ export const processPayment = async (items: Array<{ price: number; quantity: num
     const response = await axios.post('/api/create-checkout-session', {
       items,
       success_url: `${window.location.origin}/success`,
-      cancel_url: `${window.location.origin}/`, // Changed to root URL
+      cancel_url: `${window.location.origin}/`,
     });
 
     console.log('Response status:', response.status);
