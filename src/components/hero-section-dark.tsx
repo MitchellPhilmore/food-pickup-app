@@ -40,7 +40,7 @@ export function HeroSectionDark() {
           alt="Delicious soul food spread"
           className="object-cover object-center"
           fill
-          src="/images/soulfood-banner-1.jpg"
+          src="https://food-pickup-app.vercel.app/images/soulfood-banner-1.jpg"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/60 to-zinc-900/10" />
       </div>
