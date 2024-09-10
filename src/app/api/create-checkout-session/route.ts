@@ -5,6 +5,7 @@ interface LineItem {
   name: string;
   price: number;
   quantity: number;
+  image: string;
 }
 
 export async function POST(request: Request) {
@@ -17,8 +18,9 @@ export async function POST(request: Request) {
         currency: 'usd',
         product_data: {
           name: item.name,
+          images: [item.image],
         },
-        unit_amount: item.price 
+        unit_amount: Math.round(item.price * 100), // Convert to cents and ensure it's an integer
       },
       quantity: item.quantity,
     }));

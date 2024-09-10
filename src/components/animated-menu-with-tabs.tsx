@@ -55,21 +55,24 @@ export function AnimatedMenuWithTabs({
   };
 
   return (
-    <div className="w-full bg-zinc-900 text-zinc-300">
-      <Tabs defaultValue={categories[0].id.toString()} className="w-full mb-8">
-        <TabsList className="w-full flex flex-wrap justify-start bg-zinc-800 p-2 h-24 overflow-y-auto">
+    <div className="w-full">
+      <div className="sticky top-0 z-10 bg-zinc-800 shadow-md">
+        <div className="flex flex-wrap justify-center py-3 px-4">
           {categories.map((category) => (
-            <TabsTrigger
+            <button
               key={category.id}
-              value={category.id.toString()}
+              className={`px-3 py-1 m-1.5 text-sm font-medium rounded-full transition-colors ${
+                activeCategory === category.id
+                  ? 'bg-amber-400 text-zinc-900'
+                  : 'bg-zinc-700 text-zinc-300 hover:bg-zinc-600'
+              }`}
               onClick={() => setActiveCategory(category.id)}
-              className="px-4 py-2 m-1 text-zinc-300 hover:text-white data-[state=active]:bg-amber-600 data-[state=active]:text-zinc-950 rounded-md text-lg font-medium transition-colors"
             >
               {category.name}
-            </TabsTrigger>
+            </button>
           ))}
-        </TabsList>
-      </Tabs>
+        </div>
+      </div>
 
       <AnimatePresence mode="wait">
         <motion.div
