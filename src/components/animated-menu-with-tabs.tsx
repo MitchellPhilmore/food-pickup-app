@@ -32,7 +32,7 @@ export function AnimatedMenuWithTabs({
     const fetchMenuItems = async () => {
       try {
         const items = await getMenuItems();
-        setMenuItems(items.map(item => ({ ...item, id: parseInt(item.id) })));
+        setMenuItems(items.map(item => ({ ...item, id: parseInt(item.id, 10) })));
       } catch (error) {
         console.error("Error fetching menu items:", error);
       }

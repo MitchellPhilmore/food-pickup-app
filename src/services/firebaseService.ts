@@ -1,6 +1,11 @@
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, DocumentData } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../lib/firebase';
+
+export interface Ingredient {
+  name: string;
+  default: boolean;
+}
 
 export interface MenuItem {
   id: string;
@@ -9,7 +14,7 @@ export interface MenuItem {
   price: number;
   category: string;
   image: string;
-  ingredients: { name: string; default: boolean }[];
+  ingredients: Ingredient[];
 }
 
 export const getMenuItems = async (): Promise<MenuItem[]> => {
@@ -21,21 +26,29 @@ export const getMenuItems = async (): Promise<MenuItem[]> => {
   } as MenuItem));
 };
 
-export const addMenuItem = async (menuItem: any, image: File) => {
-  const storageRef = ref(storage, `menu-images/${image.name}`);
-  await uploadBytes(storageRef, image);
+export interface NewMenuItem extends Omit<MenuItem, 'id' | 'image'> {
+  image: File;
+}
+
+export const addMenuItem = async (menuItem: NewMenuItem): Promise<void> => {
+  const storageRef = ref(storage, `menu-images/${menuItem.image.name}`);
+  await uploadBytes(storageRef, menuItem.image);
   const imageUrl = await getDownloadURL(storageRef);
 
   const menuItemsCol = collection(db, 'menuItems');
-  return addDoc(menuItemsCol, { ...menuItem, image: imageUrl });
+  await addDoc(menuItemsCol, { 
+    ...menuItem, 
+    image: imageUrl,
+    price: Number(menuItem.price) // Ensure price is stored as a number
+  });
 };
 
-export const updateMenuItem = async (id: string, menuItem: any) => {
+export const updateMenuItem = async (id: string, menuItem: Partial<MenuItem>): Promise<void> => {
   const menuItemRef = doc(db, 'menuItems', id);
   await updateDoc(menuItemRef, menuItem);
 };
 
-export const deleteMenuItem = async (id: string) => {
+export const deleteMenuItem = async (id: string): Promise<void> => {
   const menuItemRef = doc(db, 'menuItems', id);
   await deleteDoc(menuItemRef);
 };

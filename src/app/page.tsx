@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { AnimatedMenuWithTabs } from "../components/animated-menu-with-tabs";
 import { HeroSectionDark } from "../components/hero-section-dark";
 import { Header } from "../components/header";
@@ -8,8 +7,6 @@ import { Footer } from "../components/footer";
 import { RestaurantLocation } from "../components/restaurant-location";
 
 export default function Home() {
-  const [selectedCategory] = useState(null);
-
   const business = {
     name: "Delicious Eats",
     description: "Your go-to place for delicious food",
