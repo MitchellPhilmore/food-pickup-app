@@ -7,6 +7,11 @@ import { FoodCartModal } from "./food-cart-modal";
 import { SoulFoodOrderModal } from "./soul-food-order-modal";
 import { Button } from "@/components/ui/button";
 
+interface Ingredient {
+  name: string;
+  price: number;
+}
+
 interface MenuItem {
   id: number;
   name: string;
@@ -14,6 +19,7 @@ interface MenuItem {
   price: number;
   image: string;
   category: string;
+  ingredients?: Ingredient[];
 }
 
 interface AnimatedMenuWithTabsProps {

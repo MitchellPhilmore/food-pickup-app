@@ -106,8 +106,8 @@ export function SoulFoodOrderModal({ isOpen, onClose }: SoulFoodOrderModalProps)
             <p className="font-semibold text-lg text-amber-400">Total:</p>
             <p className="font-bold text-2xl text-amber-400">${total.toFixed(2)}</p>
           </div>
-          <Button onClick={handleCheckout} className="w-full bg-amber-600 hover:bg-amber-700 text-zinc-900">
-            Checkout
+          <Button onClick={handleCheckout} className="w-full bg-amber-600 hover:bg-amber-700 text-white text-lg font-semibold py-2">
+            Continue to Checkout
           </Button>
         </DialogFooter>
       </DialogContent>

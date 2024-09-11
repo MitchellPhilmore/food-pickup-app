@@ -19,15 +19,17 @@ import { useCart } from "../context/CartContext"
 
 interface Ingredient {
   name: string;
-  default: boolean;
+  price: number;
 }
 
 interface MenuItem {
   id: number;
   name: string;
+  description: string;
   price: number;
   image: string;
-  ingredients: Ingredient[];
+  category: string;
+  ingredients?: Ingredient[];
 }
 
 interface FoodCartModalProps {
@@ -39,19 +41,18 @@ interface FoodCartModalProps {
 
 export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartModalProps) {
   const [quantity, setQuantity] = useState(1)
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
-    item.ingredients.filter(ing => ing.default).map(ing => ing.name)
-  )
+  const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>([])
+
   const { addToCart } = useCart()
 
   const incrementQuantity = () => setQuantity((prev) => Math.min(prev + 1, 99))
   const decrementQuantity = () => setQuantity((prev) => Math.max(prev - 1, 1))
 
-  const handleIngredientChange = (ingredientName: string) => {
+  const handleIngredientChange = (ingredient: Ingredient) => {
     setSelectedIngredients(prev => 
-      prev.includes(ingredientName)
-        ? prev.filter(ing => ing !== ingredientName)
-        : [...prev, ingredientName]
+      prev.some(ing => ing.name === ingredient.name)
+        ? prev.filter(ing => ing.name !== ingredient.name)
+        : [...prev, ingredient]
     )
   }
 
@@ -59,7 +60,7 @@ export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartMod
     addToCart({ 
       ...item, 
       quantity, 
-      selectedIngredients 
+      selectedIngredients: selectedIngredients.map(ing => ing.name) // Only pass ingredient names
     })
     onClose()
   }
@@ -68,11 +69,14 @@ export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartMod
     addToCart({ 
       ...item, 
       quantity, 
-      selectedIngredients 
+      selectedIngredients: selectedIngredients.map(ing => ing.name) // Only pass ingredient names
     })
     onClose()
     onCheckout()
   }
+
+  // Example of handling potentially undefined ingredients
+  const availableIngredients = item.ingredients || [];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -133,18 +137,19 @@ export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartMod
           <div>
             <Label className="mb-2 block">Ingredients</Label>
             <div className="grid grid-cols-3 gap-2">
-              {item.ingredients.map((ingredient) => (
+              {availableIngredients.map((ingredient) => (
                 <div key={ingredient.name} className="flex items-center space-x-2">
                   <Checkbox
                     id={ingredient.name}
-                    checked={selectedIngredients.includes(ingredient.name)}
-                    onCheckedChange={() => handleIngredientChange(ingredient.name)}
+                    checked={selectedIngredients.some(ing => ing.name === ingredient.name)}
+                    onCheckedChange={() => handleIngredientChange(ingredient)}
                   />
                   <label
                     htmlFor={ingredient.name}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    {ingredient.name}
+                    {ingredient.name} {/* Display the ingredient name */}
+                    {ingredient.price > 0 && ` (+$${ingredient.price.toFixed(2)})`} {/* Show price if it's greater than 0 */}
                   </label>
                 </div>
               ))}
@@ -153,7 +158,12 @@ export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartMod
         </div>
         <DialogFooter className="flex justify-between">
           <Button type="submit" onClick={handleAddToCart}>Add to Cart</Button>
-          <Button onClick={handleCheckout} className="bg-amber-600 hover:bg-amber-700">Checkout</Button>
+          <Button 
+            onClick={handleCheckout} 
+            className="bg-white text-zinc-900 hover:bg-zinc-100"
+          >
+            Continue to Checkout
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
