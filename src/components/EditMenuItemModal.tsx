@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MenuItem, Ingredient } from '@/types/menu';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import Image from 'next/image';
 import { Trash2 } from 'lucide-react'; // Import the trash can icon
 

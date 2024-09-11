@@ -8,9 +8,9 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowUpDown, Search, Edit2 } from 'lucide-react'
 import Image from 'next/image'
-import { menuItems, categories } from "@/data/menuItems"
+import { menuItems } from "@/data/menuItems"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 const inventoryData = [
   { id: 1, name: 'Tomatoes', category: 'Vegetables', quantity: 50, unit: 'kg', status: 'In Stock' },
@@ -37,7 +37,7 @@ function Inventory() {
   )
 
   const sortedInventory = React.useMemo(() => {
-    let sortableItems = [...filteredInventory]
+    const sortableItems = [...filteredInventory]
     if (sortConfig.key !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key!] < b[sortConfig.key!]) {

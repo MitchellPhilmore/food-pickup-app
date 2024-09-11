@@ -5,7 +5,6 @@ import { Header } from "../components/header";
 import { CustomerReviews } from "../components/customer-reviews";
 import { Footer } from "../components/footer";
 import { RestaurantLocation } from "../components/restaurant-location";
-import { MenuItem } from "../types/menu";
 import { categories, menuItems } from "@/data/menuItems";
 
 export default function Home() {

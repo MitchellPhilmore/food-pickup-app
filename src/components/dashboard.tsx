@@ -36,8 +36,6 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import {
   Dialog,
   DialogContent,
@@ -353,7 +351,14 @@ function OrderDetailsModal({
   order,
   onUpdateStatus,
 }: {
-  order: any;
+  order: {
+    id: number;
+    customer: string;
+    items: string;
+    total: number;
+    status: string;
+    time: string;
+  };
   onUpdateStatus: (id: number, status: string) => void;
 }) {
   return (
@@ -417,7 +422,6 @@ function OrderDetailsModal({
 function MenuManagement() {
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [allMenuItems, setAllMenuItems] = useState(menuItems);
-  const [activeCategory, setActiveCategory] = useState("all");
 
   const handleEdit = (item: MenuItem) => {
     setEditingItem(item);
@@ -446,7 +450,6 @@ function MenuManagement() {
       </h2>
       <Tabs
         defaultValue="all"
-        onValueChange={(value) => setActiveCategory(value)}
       >
         <TabsList>
           <TabsTrigger value="all">All</TabsTrigger>
