@@ -146,7 +146,6 @@ export default function Home() {
     ],
   };
 
-  // Modify menuItems to include the category
   const menuItemsWithCategory = {
     1: menuItems[1].map(item => ({ ...item, category: "Appetizers" })),
     2: menuItems[2].map(item => ({ ...item, category: "Main Courses" })),

@@ -6,10 +6,13 @@ import Image from "next/image";
 import { FoodCartModal } from "./food-cart-modal";
 import { SoulFoodOrderModal } from "./soul-food-order-modal";
 import { Button } from "@/components/ui/button";
-import { getMenuItems, MenuItem as FirebaseMenuItem } from "../services/firebaseService";
 
-interface MenuItem extends Omit<FirebaseMenuItem, 'id'> {
+interface MenuItem {
   id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
   category: string;
 }
 
@@ -25,19 +28,7 @@ export function AnimatedMenuWithTabs({
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(Object.values(initialMenuItems).flat());
-
-  useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        const items = await getMenuItems();
-        setMenuItems(items.map(item => ({ ...item, id: parseInt(item.id, 10) })));
-      } catch (error) {
-        console.error("Error fetching menu items:", error);
-      }
-    };
-    fetchMenuItems();
-  }, []);
+  const menuItems = Object.values(initialMenuItems).flat();
 
   const filteredItems =
     activeCategory === categories[0].id
