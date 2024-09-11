@@ -12,7 +12,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useCart } from "../context/CartContext"
-import { processPayment } from "../services/stripeService";
+import { processPayment } from "../services/stripeService"
+import Image from 'next/image';
 
 interface SoulFoodOrderModalProps {
   isOpen: boolean;
@@ -62,7 +63,13 @@ export function SoulFoodOrderModal({ isOpen, onClose }: SoulFoodOrderModalProps)
           <div className="space-y-4">
             {cartItems.map((item) => (
               <div key={`${item.id}-${item.selectedIngredients.join('-')}`} className="flex items-center space-x-4 bg-zinc-800 p-3 rounded-lg">
-                <img src={item.image} alt={item.name} className="w-20 h-20 rounded-md object-cover" />
+                <Image
+                  src="/path-to-your-image.jpg"
+                  alt="Soul Food Order"
+                  width={500}  // Adjust as needed
+                  height={300} // Adjust as needed
+                  layout="responsive"
+                />
                 <div className="flex-1">
                   <p className="font-medium text-lg">{item.name}</p>
                   <p className="text-amber-400">${item.price.toFixed(2)}</p>

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FoodCartModal } from "./food-cart-modal";
 import { SoulFoodOrderModal } from "./soul-food-order-modal";
 import { Button } from "@/components/ui/button";
-import { MenuItem, Ingredient } from "../types/menu";
+import { MenuItem } from "../types/menu";
 
 interface AnimatedMenuWithTabsProps {
   categories: { id: number; name: string }[];

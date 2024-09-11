@@ -5,7 +5,7 @@ import { Header } from "../components/header";
 import { CustomerReviews } from "../components/customer-reviews";
 import { Footer } from "../components/footer";
 import { RestaurantLocation } from "../components/restaurant-location";
-import { MenuItem, Ingredient } from "../types/menu";
+import { MenuItem } from "../types/menu";
 
 export default function Home() {
   const business = {
