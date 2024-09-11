@@ -5,6 +5,7 @@ import { Header } from "../components/header";
 import { CustomerReviews } from "../components/customer-reviews";
 import { Footer } from "../components/footer";
 import { RestaurantLocation } from "../components/restaurant-location";
+import { MenuItem, Ingredient } from "../types/menu";
 
 export default function Home() {
   const business = {
@@ -146,11 +147,11 @@ export default function Home() {
     ],
   };
 
-  const menuItemsWithCategory = {
-    1: menuItems[1].map(item => ({ ...item, category: "Appetizers" })),
-    2: menuItems[2].map(item => ({ ...item, category: "Main Courses" })),
-    3: menuItems[3].map(item => ({ ...item, category: "Desserts" })),
-    4: menuItems[4].map(item => ({ ...item, category: "Drinks" })),
+  const menuItemsWithCategory: Record<number, MenuItem[]> = {
+    1: menuItems[1].map(item => ({ ...item, category: "Appetizers", ingredients: item.ingredients.map(ing => ({ ...ing, price: 0 })) })),
+    2: menuItems[2].map(item => ({ ...item, category: "Main Courses", ingredients: item.ingredients.map(ing => ({ ...ing, price: 0 })) })),
+    3: menuItems[3].map(item => ({ ...item, category: "Desserts", ingredients: item.ingredients.map(ing => ({ ...ing, price: 0 })) })),
+    4: menuItems[4].map(item => ({ ...item, category: "Drinks", ingredients: item.ingredients.map(ing => ({ ...ing, price: 0 })) })),
   };
 
   return (

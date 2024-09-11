@@ -16,21 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 import { useCart } from "../context/CartContext"
-
-interface Ingredient {
-  name: string;
-  price: number;
-}
-
-interface MenuItem {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  ingredients?: Ingredient[];
-}
+import { MenuItem, Ingredient } from "../types/menu";
 
 interface FoodCartModalProps {
   item: MenuItem;
@@ -149,7 +135,7 @@ export function FoodCartModal({ item, isOpen, onClose, onCheckout }: FoodCartMod
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     {ingredient.name} {/* Display the ingredient name */}
-                    {ingredient.price > 0 && ` (+$${ingredient.price.toFixed(2)})`} {/* Show price if it's greater than 0 */}
+                    {ingredient.price !== undefined && ingredient.price > 0 && ` (+$${ingredient.price.toFixed(2)})`} {/* Show price if it's greater than 0 */}
                   </label>
                 </div>
               ))}

@@ -6,21 +6,7 @@ import Image from "next/image";
 import { FoodCartModal } from "./food-cart-modal";
 import { SoulFoodOrderModal } from "./soul-food-order-modal";
 import { Button } from "@/components/ui/button";
-
-interface Ingredient {
-  name: string;
-  price: number;
-}
-
-interface MenuItem {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  ingredients?: Ingredient[];
-}
+import { MenuItem, Ingredient } from "../types/menu";
 
 interface AnimatedMenuWithTabsProps {
   categories: { id: number; name: string }[];
