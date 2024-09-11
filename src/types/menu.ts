@@ -1,7 +1,7 @@
 export interface Ingredient {
   name: string;
   default: boolean;
-  price?: number;
+  price: number;
 }
 
 export interface MenuItem {

@@ -1,0 +1,143 @@
+import { MenuItem } from "@/types/menu";
+
+export const categories = [
+  { id: 1, name: "Appetizers" },
+  { id: 2, name: "Main Courses" },
+  { id: 3, name: "Desserts" },
+  { id: 4, name: "Drinks" },
+];
+
+export const menuItems: Record<number, MenuItem[]> = {
+  1: [
+    {
+      id: 1,
+      name: "Mozzarella Sticks",
+      description: "Crispy outside, gooey inside",
+      price: 7.99,
+      image: "/images/mozzarella-sticks.jpg",
+      category: "Appetizers",
+      ingredients: [
+        { name: "Mozzarella Cheese", default: true, price: 0 },
+        { name: "Breadcrumbs", default: true, price: 0 },
+        { name: "Marinara Sauce", default: true, price: 0 },
+        { name: "Herbs", default: false, price: 0 },
+        { name: "Garlic Powder", default: false, price: 0 },
+      ],
+    },
+    {
+      id: 2,
+      name: "Chicken Wings",
+      description: "Spicy buffalo sauce",
+      price: 9.99,
+      image: "/images/chicken-wings.webp",
+      category: "Appetizers",
+      ingredients: [
+        { name: "Chicken Wings", default: true, price: 0 },
+        { name: "Buffalo Sauce", default: true, price: 0 },
+        { name: "Blue Cheese Dip", default: true, price: 0 },
+        { name: "Celery Sticks", default: true, price: 0 },
+        { name: "Extra Hot Sauce", default: false, price: 0 },
+      ],
+    },
+  ],
+  2: [
+    {
+      id: 3,
+      name: "Cheeseburger",
+      description: "Classic beef patty with cheese",
+      price: 12.99,
+      image: "/images/cheeseburger.jpg",
+      category: "Main Courses",
+      ingredients: [
+        { name: "Beef Patty", default: true, price: 0 },
+        { name: "Cheese", default: true, price: 0 },
+        { name: "Lettuce", default: true, price: 0 },
+        { name: "Tomato", default: true, price: 0 },
+        { name: "Onion", default: true, price: 0 },
+        { name: "Pickles", default: true, price: 0 },
+        { name: "Ketchup", default: false, price: 0 },
+        { name: "Mustard", default: false, price: 0 },
+        { name: "Mayo", default: false, price: 0 },
+        { name: "Bacon", default: false, price: 0 },
+      ],
+    },
+    {
+      id: 4,
+      name: "Grilled Salmon",
+      description: "Served with roasted vegetables",
+      price: 16.99,
+      image: "/images/grilled-salmon.jpg",
+      category: "Main Courses",
+      ingredients: [
+        { name: "Salmon Fillet", default: true, price: 0 },
+        { name: "Lemon", default: true, price: 0 },
+        { name: "Roasted Vegetables", default: true, price: 0 },
+        { name: "Dill", default: true, price: 0 },
+        { name: "Garlic Butter", default: false, price: 0 },
+        { name: "Capers", default: false, price: 0 },
+      ],
+    },
+  ],
+  3: [
+    {
+      id: 5,
+      name: "Chocolate Cake",
+      description: "Rich and decadent",
+      price: 6.99,
+      image: "/images/chocolate-cake.webp",
+      category: "Desserts",
+      ingredients: [
+        { name: "Chocolate Sponge", default: true, price: 0 },
+        { name: "Chocolate Frosting", default: true, price: 0 },
+        { name: "Chocolate Chips", default: true, price: 0 },
+        { name: "Whipped Cream", default: false, price: 0 },
+        { name: "Cherry", default: false, price: 0 },
+      ],
+    },
+    {
+      id: 6,
+      name: "Ice Cream Sundae",
+      description: "Your choice of 3 scoops",
+      price: 5.99,
+      image: "/images/ice-cream-sundae.jpg",
+      category: "Desserts",
+      ingredients: [
+        { name: "Vanilla Ice Cream", default: true, price: 0 },
+        { name: "Chocolate Sauce", default: true, price: 0 },
+        { name: "Whipped Cream", default: true, price: 0 },
+        { name: "Cherry", default: true, price: 0 },
+        { name: "Nuts", default: false, price: 0 },
+        { name: "Sprinkles", default: false, price: 0 },
+      ],
+    },
+  ],
+  4: [
+    {
+      id: 7,
+      name: "Soda",
+      description: "Various flavors available",
+      price: 2.49,
+      image: "/images/soda.jpg",
+      category: "Drinks",
+      ingredients: [
+        { name: "Cola", default: true, price: 0 },
+        { name: "Ice", default: true, price: 0 },
+        { name: "Lemon Slice", default: false, price: 0 },
+      ],
+    },
+    {
+      id: 8,
+      name: "Iced Tea",
+      description: "Freshly brewed",
+      price: 2.99,
+      image: "/images/ice-tea.webp",
+      category: "Drinks",
+      ingredients: [
+        { name: "Black Tea", default: true, price: 0 },
+        { name: "Ice", default: true, price: 0 },
+        { name: "Lemon Slice", default: true, price: 0 },
+        { name: "Sugar Syrup", default: false, price: 0 },
+      ],
+    },
+  ],
+};
