@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "seed": "ts-node scripts/seedFirebase.ts",
     "typecheck": "tsc --noEmit",
-    "postinstall": "prisma generate",
+    "postinstall": "npx prisma generate",
     "prepare": "husky install",
         "prisma:generate": "prisma generate"
   },
