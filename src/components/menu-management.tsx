@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
-import { EditMenuItemModal } from "@/components/EditMenuItemModal";
+import { EditMenuItemModal } from "@/components/edit-menuItem-modal";
 import { menuItems, categories } from "@/data/menuItems";
 import { MenuItem} from "@/types/menu"; 
 

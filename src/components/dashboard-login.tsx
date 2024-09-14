@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function DashboardLogin() {
   const [email, setEmail] = useState("");
@@ -29,8 +30,11 @@ export function DashboardLogin() {
       if (result?.error) {
         setError(result.error);
         console.error("Login error:", result.error);
-        console.log(error);
       } else {
+        // Store basic user data in localStorage
+        const userData = { email: email, name: email.split('@')[0] }; // Using email as a basic identifier
+        localStorage.setItem("userData", JSON.stringify(userData));
+        
         router.push("/dashboard");
       }
     } catch (error) {
@@ -115,6 +119,19 @@ export function DashboardLogin() {
               >
                 Log In
               </Button>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="text-center"
+            >
+              <p className="text-amber-300 text-sm">
+                Don't have an account?{" "}
+                <Link href="/register" className="text-amber-500 hover:underline">
+                  Register here
+                </Link>
+              </p>
             </motion.div>
           </form>
           <motion.div

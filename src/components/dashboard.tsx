@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { OrderManagement } from "./order-management";
 import { MenuManagement } from "./menu-management";
 import { Analytics } from "./analytics";
@@ -54,6 +56,26 @@ import { withAuth } from './with-auth';
 
 function DashboardComponent() {
   const [activeSection, setActiveSection] = React.useState("orders");
+  const [userData, setUserData] = useState({ name: "Guest" });
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    // Clear localStorage
+    localStorage.removeItem("userData");
+    
+    // Sign out the user
+    await signOut({ redirect: false });
+    
+    // Redirect to signin page
+    router.push("/login");
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -148,7 +170,7 @@ function DashboardComponent() {
                     className="flex items-center text-gray-300 hover:text-gray-100"
                   >
                     <User className="mr-2 h-4 w-4" />
-                    <span>John Doe</span>
+                    <span>{userData.name}</span>
                     <ChevronDown className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -161,7 +183,7 @@ function DashboardComponent() {
                   <DropdownMenuItem className="focus:bg-gray-700">
                     Settings
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="focus:bg-gray-700">
+                  <DropdownMenuItem className="focus:bg-gray-700" onSelect={handleLogout}>
                     Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
