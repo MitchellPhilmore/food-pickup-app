@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 const MenuCategoryPage = () => {
   const params = useParams();
-  const id = params.id;
+  const id = params?.id;
 
   // Fetch menu items based on category ID (to be implemented)
   const menuItems = [
