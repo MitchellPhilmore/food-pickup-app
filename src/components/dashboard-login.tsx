@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Utensils, Coffee } from "lucide-react";
+import { Utensils, Coffee, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,12 +13,14 @@ import Link from "next/link";
 export function DashboardLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
       const result = await signIn("credentials", {
@@ -31,15 +33,15 @@ export function DashboardLogin() {
         setError(result.error);
         console.error("Login error:", result.error);
       } else {
-        // Store basic user data in localStorage
-        const userData = { email: email, name: email.split('@')[0] }; // Using email as a basic identifier
+        const userData = { email: email, name: email.split("@")[0] };
         localStorage.setItem("userData", JSON.stringify(userData));
-        
         router.push("/dashboard");
       }
     } catch (error) {
       console.error("Unexpected error during login:", error);
       setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -116,10 +118,27 @@ export function DashboardLogin() {
               <Button
                 type="submit"
                 className="w-full bg-amber-600 hover:bg-amber-700 text-gray-900 font-semibold transition-colors duration-300"
+                disabled={isLoading}
               >
-                Log In
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Log In"
+                )}
               </Button>
             </motion.div>
+            {error && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-red-500 text-sm text-center"
+              >
+                {error}
+              </motion.p>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -128,7 +147,10 @@ export function DashboardLogin() {
             >
               <p className="text-amber-300 text-sm">
                 Don't have an account?{" "}
-                <Link href="/register" className="text-amber-500 hover:underline">
+                <Link
+                  href="/register"
+                  className="text-amber-500 hover:underline"
+                >
                   Register here
                 </Link>
               </p>

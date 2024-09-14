@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Utensils, Coffee } from "lucide-react";
+import { Utensils, Coffee, Loader2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,11 +13,14 @@ export function RegisterStaff() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/register", {
@@ -34,7 +37,13 @@ export function RegisterStaff() {
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -114,15 +123,28 @@ export function RegisterStaff() {
               <Label htmlFor="password" className="text-amber-300">
                 Password
               </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="bg-gray-700 border-gray-600 text-amber-100 placeholder-amber-300/50 focus:border-amber-500 focus:ring-amber-500"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="bg-gray-700 border-gray-600 text-amber-100 placeholder-amber-300/50 focus:border-amber-500 focus:ring-amber-500 pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-amber-300 hover:text-amber-500"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -132,8 +154,16 @@ export function RegisterStaff() {
               <Button
                 type="submit"
                 className="w-full bg-amber-600 hover:bg-amber-700 text-gray-900 font-semibold transition-colors duration-300"
+                disabled={isLoading}
               >
-                Register
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Registering...
+                  </>
+                ) : (
+                  'Register'
+                )}
               </Button>
             </motion.div>
           </form>
