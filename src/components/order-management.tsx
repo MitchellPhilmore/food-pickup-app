@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { OrderDetailsModal } from "./order-details-modal"; // New import
+import { OrderDetailsModal } from "./order-details-modal"; 
 
-// Add this interface
 interface Order {
   id: string;
   customer: string;

@@ -35,6 +35,7 @@ export function DashboardLogin() {
     } catch (error) {
       console.error("Unexpected error during login:", error);
       setError("An unexpected error occurred. Please try again.");
+      console.log(error);
     }
   };
 
