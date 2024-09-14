@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Utensils, Coffee, Loader2 } from "lucide-react";
+import { Utensils, Coffee, Loader2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,8 +13,9 @@ import Link from "next/link";
 export function DashboardLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,7 +34,7 @@ export function DashboardLogin() {
         setError(result.error);
         console.error("Login error:", result.error);
       } else {
-        const userData = { email: email, name: email.split("@")[0] };
+        const userData = { email: email, name: email.split('@')[0] };
         localStorage.setItem("userData", JSON.stringify(userData));
         router.push("/dashboard");
       }
@@ -43,6 +44,10 @@ export function DashboardLogin() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -100,15 +105,28 @@ export function DashboardLogin() {
               <Label htmlFor="password" className="text-amber-300">
                 Password
               </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="bg-gray-700 border-gray-600 text-amber-100 placeholder-amber-300/50 focus:border-amber-500 focus:ring-amber-500"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="bg-gray-700 border-gray-600 text-amber-100 placeholder-amber-300/50 focus:border-amber-500 focus:ring-amber-500 pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-amber-300 hover:text-amber-500"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -126,7 +144,7 @@ export function DashboardLogin() {
                     Logging in...
                   </>
                 ) : (
-                  "Log In"
+                  'Log In'
                 )}
               </Button>
             </motion.div>
@@ -146,11 +164,8 @@ export function DashboardLogin() {
               className="text-center"
             >
               <p className="text-amber-300 text-sm">
-                Don't have an account?{" "}
-                <Link
-                  href="/register"
-                  className="text-amber-500 hover:underline"
-                >
+                Don&apos;t have an account?{" "}
+                <Link href="/register" className="text-amber-500 hover:underline">
                   Register here
                 </Link>
               </p>
