@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 export function DashboardLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // eslint-disable-line no-unused-vars
+  const [error, setError] = useState(""); 
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,13 +29,13 @@ export function DashboardLogin() {
       if (result?.error) {
         setError(result.error);
         console.error("Login error:", result.error);
+        console.log(error);
       } else {
         router.push("/dashboard");
       }
     } catch (error) {
       console.error("Unexpected error during login:", error);
       setError("An unexpected error occurred. Please try again.");
-      console.log(error);
     }
   };
 
